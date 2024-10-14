@@ -21,12 +21,14 @@ def reset_timer():
     cycle_counter = 0  # Sayaç sıfırla
     canvas.itemconfig(timer_text, text="00:00")
     start_button.configure(state=NORMAL)
+    timer.config(text="Timer", font=(FONT_NAME, 45, "bold"), fg=GREEN, bg=YELLOW)
     if timer_id:
         root.after_cancel(timer_id)  # cancel the current timer
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
-def start_counting(minute=WORK_MIN, second=0):
+def start_counting(minute=0, second=5):
+    timer.config(text="WORK", fg=GREEN)
     global cycle_counter, timer_id
     start_button.configure(state=DISABLED)
     if minute >= 0 and second >= 0:
@@ -49,7 +51,8 @@ def start_counting(minute=WORK_MIN, second=0):
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
-def short_break_time(minute=SHORT_BREAK_MIN, second=0):
+def short_break_time(minute=0, second=1):
+    timer.config(text="BREAK", fg=RED)
     global timer_id
     if minute >= 0 and second >= 0:
         canvas.itemconfig(timer_text, text=f"{minute:02d}:{second:02d}")
@@ -64,7 +67,8 @@ def short_break_time(minute=SHORT_BREAK_MIN, second=0):
     else:
         start_counting()
 
-def long_break_time(minute=LONG_BREAK_MIN, second=0):
+def long_break_time(minute=0, second=3):
+    timer.config(text="BREAK", fg=RED)
     global timer_id
     if minute >= 0 and second >= 0:
         canvas.itemconfig(timer_text, text=f"{minute:02d}:{second:02d}")
